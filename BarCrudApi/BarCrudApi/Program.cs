@@ -23,7 +23,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(x =>
     x.Password.RequireNonAlphanumeric = false;
 }).
     AddEntityFrameworkStores<BarCrudContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders(); 
 //Autenticacion
 builder.Services.AddAuthentication(options =>
 {

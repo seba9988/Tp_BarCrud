@@ -123,9 +123,7 @@ namespace BarCrudMVC.Services
                     var token = resp.Token;
                     var handler = new JwtSecurityTokenHandler();
                     var jwtSecurityToken = handler.ReadJwtToken(token);
-                    //var userNameToken = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
-                    //var roleToken = jwtSecurityToken.Claims.Where(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
-                    //var emailToken = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+                    
                     var userNameToken = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type.Contains("name") );
                     var roleToken = jwtSecurityToken.Claims.Where(c => c.Type.Contains("role"));
                     var emailToken = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type.Contains("emailaddress"));

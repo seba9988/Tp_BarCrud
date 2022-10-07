@@ -130,7 +130,6 @@ namespace BarCrudMVC.Controllers
             }
         }
 
-        #region Admin y SuperAdmin
         //Se busca bares sin manager y sin baja si los hay , luego se redirecciona a la pagina de registrar manager
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         [HttpGet]
@@ -389,8 +388,7 @@ namespace BarCrudMVC.Controllers
                 ViewBag.Fallo = "Ocurrio un error.";
                 return View("AccionResult");
             }
-        }
-        #endregion        
+        }     
     }
 }
 

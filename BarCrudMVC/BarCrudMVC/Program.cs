@@ -15,9 +15,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         //Path o direccion del login
         options.LoginPath = "/UserManagement/Index";
-        //options.Cookie.HttpOnly = true;
-        //options.Cookie.SameSite = SameSiteMode.Lax;
-        //options.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
         options.AccessDeniedPath = "/Home/AccessDenied";
 
     });

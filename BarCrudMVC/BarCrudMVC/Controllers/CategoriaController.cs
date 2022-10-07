@@ -19,8 +19,6 @@ namespace BarCrudMVC.Controllers
             _categoriaService = categoriaService;
         }
 
-
-        #region Admin y superAdmin
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         //Busco y traigo todas las categorias con o sin baja, solo admins y superAdmins
         public async Task<IActionResult> CategoriaAdmin()
@@ -200,6 +198,5 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        #endregion
     }
 }
