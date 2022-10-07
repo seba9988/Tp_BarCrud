@@ -48,14 +48,6 @@ namespace BarCrudApi.Services.Interfaces
 
                                }).ToListAsync();
             return users;
-            //var users =  _context.Users.Select(async u =>   new UserViewModel
-            //{
-            //    UserName = u.UserName,
-            //    Id = u.Id,
-            //    Email = u.Email,
-            //    Roles = await _userManager.GetRolesAsync(u)
-            //}).ToList();
-            //return users
         }
         //Traigo todos los datos de un usuario
         public async Task<UserStatusAdminViewModel>? GetOne(string id)

@@ -63,13 +63,6 @@ namespace BarCrudApi.Services
                                          && rol.Name == UserRoles.Manager
                                          && per.FechaBaja == null
                                   select new PersonaViewModel(per)).ToListAsync();
-
-            //await (from per in _context.Personas
-            //       join user in _context.Users on per.IdUsuario equals user.Id
-            //       join rolUser in _context.UserRoles on user.Id equals rolUser.UserId
-            //       join rol in _context.Roles on rolUser.RoleId equals rol.Id
-            //       where rol.Name == UserRoles.Manager && per.FechaBaja == null
-            //       select new PersonaViewModel(per)).ToListAsync();
             return managers;           
         }
     }

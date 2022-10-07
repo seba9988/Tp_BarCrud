@@ -156,12 +156,6 @@ namespace BarCrudApi.Services
         //se prohibe restore si la categoria o bar del producto estan de baja
         public async Task<bool> Restore(int id)
         {
-            //var productoARecuperar = from prod in _context.Productos
-            //                         join bar in _context.Bares on prod.BarId equals bar.Id
-            //                         join ctg in _context.Categorias on prod.CategoriaId equals ctg.Id
-            //                         where bar.FechaBaja == null && ctg.FechaBaja == null
-            //                         select prod;
-
             var productoARecuperar = await _context.Productos
                 .Include(p => p.Bar)
                 .Include(p => p.Categoria)
