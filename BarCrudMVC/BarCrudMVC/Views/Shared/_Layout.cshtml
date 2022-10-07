@@ -1,0 +1,159 @@
+﻿@using BarCrud.Models.Auth
+@using Microsoft.AspNetCore.Identity
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BarCrudMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BarCrudMVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-nav navbar-expand-sm text-white navbar-dark navbar-toggleable-sm navbar-custom border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand " style="color:#d5ad64" asp-controller="Home" asp-action="Index">BarCrudMVC</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>                                              
+                        <li class="nav-item">
+                            <a class="nav-link text-white " asp-area="" asp-controller="Catalogo" asp-action="Index">Catalogo</a>
+                        </li> 
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white "  asp-controller="Bar" asp-action="BarManager">Administrar Bares</a>
+                            </li> 
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>
+                                <div class="dropdown">
+                                    <button class="btn text-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Administrar Crud
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Categoria"
+                                           asp-action="CategoriaAdmin">Categorias</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Producto"
+                                           asp-action="ProductoAdmin">Productos</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Bar"
+                                           asp-action="BarAdmin">Bares</a>
+                                        </li>
+                                           @if (User.IsInRole("SuperAdmin"))
+                                           {
+                                                <li>
+                                                <a class="dropdown-item" id="UserAdmin" class="nav-link" asp-controller="UserManagement"
+                                                    asp-action="UserAdmin" title="Manage">User</a>
+                                                </li>
+                                           }
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                        }    
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Registrar Usuarios
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li>
+                                            <a class="dropdown-item" asp-area=""
+                                           asp-controller="UserManagement" asp-action="Register">Registrar un Usuario</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" id="RegistrarManager" class="nav-link " asp-controller="UserManagement"
+                                           asp-action="RegisterManager" title="Manage">Registrar un Manager</a>
+                                        </li>
+                                        @if (User.IsInRole("SuperAdmin"))
+                                        {
+
+                                            <li>
+                                                <a class="dropdown-item" id="RegistrarAdmin" class="nav-link " asp-controller="UserManagement"
+                                           asp-action="RegisterAdmin" title="Manage">Registrar un Admin</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" id="RegistrarSupAdmin" class="nav-link " asp-controller="UserManagement"
+                                           asp-action="RegisterSuperAdmin" title="Manage">Registrar un SuperAdmin</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+                    </ul>                                
+                </div>
+                <div class=" ms-auto order-5">
+                    <ul class="navbar-nav ">
+                        @if (!User.IsInRole("User"))
+                        {
+                            <li class="nav-item text-white ">
+                                <a class="nav-link text-white" asp-area="" asp-controller="UserManagement" asp-action="Index">Login</a>
+                            </li>
+
+                            <li class="nav-item text-white ">
+                                <a class="nav-link text-white" asp-area="" asp-controller="UserManagement" asp-action="Register">Registrar</a>
+                            </li>
+                        }
+                            
+                            @if (User.IsInRole("User"))
+                            {
+                                <li class="nav-item">
+                                <a class="btn btn-light" asp-controller="Pedido"
+                                     asp-action="CarritoView"><i class="bi bi-cart4"></i> Carrito</a>
+                                </li>
+
+                                 <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Pedido" asp-action="VerHistorialUsuario">Ver Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="manage" class="nav-link text-white" asp-controller="UserManagement" asp-action="UserStatus"
+                                    title="Manage">Mi Perfil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form id="logoutForm" class="form-inline" asp-controller="UserManagement" asp-action="LogOut">
+                                    <button id="logout" type="submit" class="nav-link btn btn-link text-white">Logout</button>
+                                    </form>
+                                </li>
+                            }                                                                     
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - BarCrudMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

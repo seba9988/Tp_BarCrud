@@ -1,0 +1,50 @@
+﻿@using BarCrudMVC.Models
+@model CategoriaAdminViewModel
+<body>
+				
+	<section class="container w-50 p-3">
+		<h1 class="display-5 fw-bold text-center">Agregar Categoria</h1>
+
+		<article class="card bg-light">
+			<article class="card-body bg-light">
+				<form asp-action="Add" method="post">
+					<div asp-validation-summary="ModelOnly" class="test-danger"></div>
+
+					<article class="form-group">
+						<label asp-for="Nombre" class="control-label"></label>
+						<input asp-for="Nombre" class="form-control" />
+						<span asp-validation-for="Nombre" class="text-danger"></span>
+						<br>
+					</article>
+
+					<article class="form-group">
+						<label asp-for="Descripcion" class="control-label"></label>
+						<input asp-for="Descripcion" class="form-control" />
+						<span asp-validation-for="Descripcion" class="text-danger"></span>
+						<br>
+					</article>
+
+					<article class="form-group">
+						<label asp-for="Imagen" class="control-label"></label>
+						<input asp-for="Imagen" class="form-control" />
+						<br>
+					</article>
+
+					<article class="form-group">
+						<input type="submit" value="Add" class="btn btn-primary">
+					</article>					
+				</form>
+			</article>		
+		</article>	
+		<br>
+<a class=" " href='javascript:history.go(-1)'>
+	<i    class="bi bi-arrow-left"></i> Volver</a>
+	</section>
+</body>
+
+@section Scripts
+	{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}

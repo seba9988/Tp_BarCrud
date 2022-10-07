@@ -1,0 +1,71 @@
+﻿@model List<BarCrudMVC.Models.ProductoViewModel>
+
+<section class="container-fluid">
+	<h1 class="text-center">Administrar @ViewBag.Nombre</h1>
+	<hr>
+
+	<a class="btn btn-secondary float-end" asp-controller="Producto" asp-action="AddManagerView">
+		<i class="bi bi-plus-circle"></i> Agregar Producto
+	</a>
+
+	@if (Model != null && Model.Count > 0)
+	{
+		<article>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id<th/>
+						<th>Nombre<th/>
+						<th></th>
+						<th>Acciones</th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var producto in Model)
+					{
+						<tr class="form-group">
+							<td>@Html.DisplayFor( p =>producto.Id)</td>
+							<td></td>
+							<td>@Html.DisplayFor( p =>producto.Nombre)</td>
+							<td></td>
+							<td>
+								<a asp-action="VerProducto" asp-controller="Producto" class="btn btn-outline-secondary"
+						   asp-route-id="@producto.Id"><i class="bi bi-search"></i> Ver</a>
+							</td>
+							<td>
+								<a asp-action="EditManagerView" asp-controller="Producto" class="btn btn-outline-primary"
+						   asp-route-id="@producto.Id"><i class="bi bi-pencil-fill"></i></a>
+							</td>
+							<td></td>
+							<td>
+								<form method="post" asp-controller="Producto">
+									<input type="hidden" value="@producto.Id">
+									<button type="submit" class="btn btn-outline-warning" asp-action="SoftDeleteManager" asp-route-id="@producto.Id"
+									onclick="return confirm('Eiminar el registro?')">
+										<i class="bi bi-trash-fill"></i> Logico
+									</button>
+								</form>
+							</td>
+							<td></td>
+							<td></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</article>
+	}
+	else
+	{
+		<br>
+		<br>
+		<p class="alert alert-danger">No hay Productos para mostrar.</p>
+	}
+</section>

@@ -1,0 +1,49 @@
+﻿@model List<BarCrudMVC.Models.PedidoHistorialViewModel>
+
+<section class="row mx-auto w-50 p-4">
+	<div class="col">
+		<h1 class="display-5 fw-bold text-center">Historial</h1>
+		<hr>
+		<br>
+		@if (ViewBag.Error != null)
+		{
+			<article class="alert  alert-danger" role="alert">
+				@ViewBag.Error
+			</article>
+		}
+		<h2 class="display-5 fw-bold text-center">@ViewBag.Nombre</h2>
+		<article class="card-deck mx-auto w-50  ">
+			
+			@if (Model != null && Model.Count > 0)
+			{				
+				<br>
+				<br>
+				@foreach (var pedido in Model)
+				{
+					<article class="card text-dark border-secondary bg-light" style="width: 18rem; display:inline-flex">
+						<div class="card-body bg-light">
+							<h4 class="card-title">Nro Pedido: 
+								@pedido.Id
+								<a asp-action="VerDetalle" asp-controller="Pedido" class="btn btn-outline-secondary float-end"
+								asp-route-id="@pedido.Id"><i class="bi bi-search"></i></a>
+							</h4>
+							<br>
+							<h2>Total : @pedido.Total</h2>
+							<p style="inline-block">
+								<span class=" fw-bold text-secondary card-text">Fecha: </span>
+								<span class="card-text"> @pedido.FechaCompra </span>
+							</p>
+						</div>
+						<br>
+					</article>
+					<br>
+					<br>
+				}		
+			}
+			else
+			{
+				<h3 class="text-center">No se encontro ningun Pedido.</h3>
+			}
+		</article>
+	</div>
+</section>

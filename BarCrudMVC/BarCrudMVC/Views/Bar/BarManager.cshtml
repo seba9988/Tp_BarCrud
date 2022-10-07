@@ -1,0 +1,37 @@
+﻿@model BarCrudMVC.Models.BarViewModel
+@{
+	ViewData["Title"] = "Manager Bares";
+}
+<section class="row mx-auto w-50 p-4">
+	<div class="col">
+		<h1 class="display-5 fw-bold text-center">Manager Bar</h1>
+		<hr>
+		<br>
+		<br>
+		<article class="card-deck mx-auto w-50  ">
+			@if (Model != null)
+			{
+					<article class="card text-dark border-secondary" style="width: 18rem; display:inline-flex">
+					<img class="card-img-top" src="@Model.Imagen" style="width: 18rem; height: 13rem;" alt="@Model.Nombre">
+						<div class="card-body bg-light">
+							<h4 class="card-title">
+							@Model.Nombre <a asp-action="VerBar" asp-controller="Bar" class="btn btn-outline-secondary float-end"
+								 asp-route-id="@Model.Id"><i class="bi bi-search"></i></a>
+							</h4>
+							<br>
+						<a href="/Producto/ProductosBarManager/?nombreBar=@Model.Nombre&id=@Model.Id"
+								class="btn btn-outline-secondary">Productos</a>
+						<a href="/Pedido/VerHistorialBar/?nombre=@Model.Nombre&barId=@Model.Id"
+								class="btn btn-outline-secondary float-end">Pedidos</a>
+						</div>
+						<br/>
+					</article>
+			}
+			else
+			{
+				<h3>No se encontro ningun bar asignado a usted.</h3>
+			}
+		</article>
+	</div>
+	
+</section>

@@ -1,0 +1,15 @@
+﻿@using BarCrud.Models.Auth
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4 fw-bold">Bienvenido @User.Identity.Name</h1>
+    @if (!User.IsInRole("User"))
+    {
+        <h3>Inicie sesion para realizar pedidos, o mire libremente el catalogo!</h3>
+    }
+    <h3></h3>
+</div>

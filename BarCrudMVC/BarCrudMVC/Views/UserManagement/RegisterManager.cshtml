@@ -1,0 +1,103 @@
+﻿@using BarCrudMVC.Models
+@model RegisterManagerViewModel
+@{
+    ViewData["Title"] = "Registro de Manager";
+}
+<body>
+    <section class="container w-50 p-3">
+        <h1 class="display-5 fw-bold text-center">Registro de Manager</h1>
+
+        <br>
+        <article class="card bg-light">
+            
+            @if (ViewBag.Fallo != null)
+            {
+                <article class="alert alert-danger" role="alert">
+                    @ViewBag.Fallo
+                </article>
+            }
+            @if (ViewBag.Exito != null)
+            {
+                <article class="alert alert-success">
+                    @ViewBag.Exito
+                </article>
+            }
+            <article class="card-body bg-light">
+                <form asp-action="RegisterManager" method="post">
+                    <div asp-validation-summary="ModelOnly" class="test-danger"></div>
+
+                    <article class="form-group">
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                        <br>
+                    </article>
+
+                    <article class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" type="password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <br>
+                    </article>
+
+                    <article class="form-group">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                        <br>
+                    </article>
+
+                    <article class="form-group">
+                        <label asp-for="Apellido" class="control-label"></label>
+                        <input asp-for="Apellido" class="form-control" />
+                        <span asp-validation-for="Apellido" class="text-danger"></span>
+                        <br>
+                    </article>
+                    <article class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <br>
+                    </article>
+
+                    <article class="form-group">
+                        <label asp-for="Dni" class="control-label"></label>
+                        <input asp-for="Dni" class="form-control" />
+                        <span asp-validation-for="Dni" class="text-danger"></span>
+                        <br>
+                    </article>
+
+                    <article class="form-group">
+                        <label asp-for="BarId" class="control-label">Bar</label>
+                        <select class="form-select" aria-label="Default select example" name="BarId">
+                            <option selected value="@null">-Sin Bar-</option>
+                            @if (ViewBag.Bares != null && ViewBag.Bares.Count > 0)
+							{
+								foreach (var bar in ViewBag.Bares)
+								{
+									<option selected value="@bar.Id">@bar.Nombre</option>
+								}
+							}
+                            <span asp-validation-for="BarId" class="text-danger"></span>
+						</select>
+                        <br>
+					</article>
+
+                    <article class="form-group col-8 mx-auto">
+                        <center>
+                            <input type="submit" value="RegisterManager" class="btn btn-primary btn-block btn-lg">
+                        </center>
+                    </article>
+                </form>
+            </article>
+
+        </article>
+    </section>
+</body>
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+	}

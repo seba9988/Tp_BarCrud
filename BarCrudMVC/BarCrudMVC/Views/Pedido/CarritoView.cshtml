@@ -1,0 +1,84 @@
+﻿@model BarCrudMVC.Models.PedidoViewModel
+
+<section class="row mx-auto w-50 p-4">
+	<div class="col">
+		<h1 class="display-5 fw-bold text-center">Carrito</h1>
+		<hr>
+		<br>
+		@if (ViewBag.Error != null)
+		{
+			<article class="alert  alert-danger" role="alert">
+				@ViewBag.Error
+			</article>
+		}
+		<article class="card-deck mx-auto w-50  ">
+			
+			@if (Model != null && Model.PedidoDetalles.Count > 0)
+			{
+				<article class="card text-dark bg-light border-secondary mx-auto" style="width: 18rem; display:inline-flex">
+					<form asp-action="CancelarPedido" asp-controller="Pedido" method="post">
+						<div class="card-body bg-light d-grid gap-2 col-6 mx-auto">
+							<input type="submit" class="btn btn-outline-danger btn-lg" value="Vaciar">
+						</div>
+					</form>					
+				</article>
+				
+				<br>
+				<br>
+				@foreach (var pedidoDetalle in Model.PedidoDetalles)
+				{
+
+					<article class="card text-dark border-secondary bg-light" style="width: 18rem; display:inline-flex">
+						<img class="card-img-top" src="@pedidoDetalle.Producto.Imagen" style="width: 18rem; height: 13rem;">
+						<div class="card-body bg-light">
+							<h4 class="card-title">
+								@pedidoDetalle.Producto.Nombre 
+								<a  method="post"asp-action="VerProducto" asp-controller="Producto" class="btn btn-outline-secondary float-end"
+								asp-route-id="@pedidoDetalle.Producto.Id"><i class="bi bi-search"></i></a>
+							</h4>
+							<br>
+							<p style="inline-block">
+								<span class=" h3 fw-bold card-text">
+									$
+								</span>
+								<span class="card-text h3"> @pedidoDetalle.Producto.Precio </span>
+							</p>
+							<p style="inline-block">
+								<span class=" fw-bold text-secondary card-text">Cantidad:</span>
+								<span class="card-text"> @pedidoDetalle.Cantidad </span>
+							</p>
+
+							<form asp-action="RemoveProducto" asp-controller="Pedido" method="post">
+								<input  type="hidden" value="@pedidoDetalle.Producto.Id">
+								<button type="submit" class="btn btn-outline-danger float-end" 
+									asp-action="RemoveProducto" asp-route-id="@pedidoDetalle.Producto.Id">Remover
+								</button>
+							</form>
+						</div>
+						<br>
+					</article>
+					<br>
+					<br>
+				}
+				<br>
+
+
+				<article class="card text-dark bg-light border-secondary mx-auto" style="width: 18rem; display:inline-flex">
+					<h2 class ="card-title">Total: @Model.Total</h2>
+					<hr>
+					<form asp-action="Compra" asp-controller="Pedido" method="post">
+						<div class="card-body bg-light d-grid gap-2 col-6 mx-auto">
+							<input type="submit" class="btn btn-primary btn-lg" value="Comprar">
+						</div>
+					</form>
+				</article>
+
+				
+			}
+			else
+			{
+				<p class="text-center text-danger ">No se encontro ningun Pedido.</p>
+			}
+		</article>
+	</div>
+</section>

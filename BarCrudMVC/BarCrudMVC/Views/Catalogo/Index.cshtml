@@ -1,0 +1,94 @@
+﻿@model BarCrudMVC.Models.CarritoAddViewModel
+@{
+	ViewData["Title"] = "Catalogo";
+}
+<section class="container">
+	<h1 class="display-5 fw-bold text-center">Catálogo</h1>
+	<hr>
+	<br>
+	<br>
+	<article class="card-deck">
+		<h2 class="text-center">Categorias</h2>
+		<hr>
+		@if (ViewBag.Categorias != null && ViewBag.Categorias.Count > 0)
+		{
+			@foreach (var categoria in ViewBag.Categorias)
+			{				
+				<article class="card text-dark border-secondary" style="width: 18rem; display:inline-flex">
+					<img class="card-img-top" src="@categoria.Imagen" style="width: 18rem; height: 13rem;" alt="@categoria.Nombre">
+					<div class="card-body bg-light">
+						<h4 class="card-title">@categoria.Nombre</h4>
+						<a href="/Producto/ProductosPorCategoria/?nombre=@categoria.Nombre&id=@categoria.Id" class="btn btn-outline-secondary" 
+						>Ver Productos</a>
+					</div>
+				</article>
+			}
+		}
+		else
+		{
+			<h3>No hay categorias actualmente.</h3>
+		}
+	</article>
+	<article class="card-deck">
+		<h2 class="text-center">Productos</h2>
+		<hr>
+		@if (ViewBag.Productos != null && ViewBag.Productos.Count > 0)
+		{
+			@foreach (var producto in ViewBag.Productos)
+			{
+				<form asp-action="Add" asp-controller="Pedido" style="width: 18rem; display:inline-flex"  method="post">
+					<article class="card text-dark border-secondary" style="width: 18rem; display:inline-flex">
+
+						<input asp-for="ProductoId" type="hidden" class="form-control" value="@producto.Id" />
+
+						<img class="card-img-top" src="@producto.Imagen" style="width: 18rem; height: 13rem;" alt="@producto.Nombre">
+						<div class="card-body bg-light">
+							<h4 class="card-title">
+								@producto.Nombre <a asp-action="VerProducto" asp-controller="Producto"
+									  class="btn btn-outline-secondary float-end"
+									  asp-route-id="@producto.Id"><i class="bi bi-search"></i></a>
+							</h4>
+							<a href="/Producto/ProductosPorBar/?nombre=@producto.Bar.Nombre&id=@producto.Bar.Id">
+								@producto.Bar.Nombre
+							</a>
+							<br>
+							<hr>
+							<p style="inline-block">
+								<span class=" h3 fw-bold card-text">
+									$</span>
+								<span  class="card-text h3"> @producto.Precio </span>
+							</p>
+							<p style="inline-block">
+								<span class=" fw-bold card-text">Stock:</span>
+								<span class="card-text"> @producto.Stock </span>
+							</p>
+							<article class="form-group">
+								<label asp-for="Cantidad" class="control-label"></label>
+								<input asp-for="Cantidad" class="form-control" />
+								<span asp-validation-for="Cantidad" class="text-danger"></span>
+								<br>
+							</article>
+							<article class="form-group">
+								<input type="submit" value="Agregar" class="btn btn-primary">
+							</article>
+						</div>
+					</article>
+				</form>
+				
+			}
+		}
+		else
+		{
+			<h3>No hay Productos actualmente.</h3>
+		}
+	</article>
+
+</section>
+
+
+@section Scripts
+	{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}

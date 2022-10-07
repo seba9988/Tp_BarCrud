@@ -1,0 +1,52 @@
+﻿@using BarCrud.Models.Auth
+@model LoginViewModel
+<body>
+	
+	<section class="container w-25 p-3">
+		<h1 class="display-5 fw-bold ">Login</h1>
+
+		<br>
+		<article class="card bg-light">
+			@if (ViewBag.Message != null)
+			{
+				<article class="alert alert-danger">
+					@ViewBag.Message
+				</article>
+			}
+			@if (ViewBag.Fallo != null)
+			{
+				<article class="alert alert-danger">
+					@ViewBag.Fallo
+				</article>
+			}
+			<article class="card-body bg-light">
+				<form class="" asp-action="Login" method="post">
+				<div asp-validation-summary="ModelOnly" class="test-danger"></div>
+
+				<article class="form-group ">
+					<label asp-for="UserName" class="control-label"></label>
+					<input asp-for="UserName" class="form-control" />
+					<span asp-validation-for="UserName" class="text-danger"></span>
+				</article>
+				<article class="form-group">
+					<label asp-for="Password" class="control-label"></label>
+					<input asp-for="Password" class="form-control" type="password" />
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</article>
+				<br>
+					<article class="form-group  w-100 p-3" withd:"">
+					<input type="submit" value="Login" class="btn btn-primary">
+				</article>	
+			</form>
+			</article>
+			
+		</article>
+	</section>
+</body>
+
+@section Scripts 
+{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

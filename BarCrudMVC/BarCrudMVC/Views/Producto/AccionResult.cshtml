@@ -1,0 +1,34 @@
+﻿<body>
+	<section>
+		<h1 class="text-center">Resultado de la Operacion</h1>
+		@if (ViewBag.Fallo != null)
+		{
+			<article class="alert  alert-danger text-center" role="alert">
+				@ViewBag.Fallo
+			</article>
+		}
+		@if (ViewBag.Exito != null)
+		{
+			<article class="alert alert-success text-center">
+				@ViewBag.Exito
+			</article>
+		}
+		<article>
+			@if (User.IsInRole("Admin") || User.IsInRole("superAdmin"))
+			{
+				<a  asp-controller="Producto"
+			   asp-action="ProductoAdmin"><i class="bi bi-arrow-left"></i> Volver al listado</a>
+			}
+			else
+			{
+				<a class="nav-link text-dark"
+					href='javascript:history.go(-1)'>
+					<i class="bi bi-arrow-left"></i> Volver
+				</a>
+			}
+			
+		</article>
+	</section>
+
+	
+</body>

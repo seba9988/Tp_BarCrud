@@ -1,0 +1,99 @@
+﻿@model BarCrudMVC.Models.BarAdminViewModel
+
+<body>
+	
+	<section class="container w-50 p-3">
+		<h1 class="display-5 fw-bold text-center">Editar Bar</h1>
+		@if(Model != null)
+		{
+			<article class="card bg-light">
+				<article class="card-body bg-light">
+					<form asp-action="Edit" method="post">
+						<div asp-validation-summary="ModelOnly" class="test-danger"></div>
+
+						<article class="form-group">
+							<input asp-for="Id" type="hidden" class="form-control" value="@Model.Id" />
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Nombre" class="control-label"></label>
+							<input asp-for="Nombre" class="form-control" value="@Model.Nombre" />
+							<span asp-validation-for="Nombre" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Direccion" class="control-label"></label>
+							<input asp-for="Direccion" class="form-control" value="@Model.Direccion" />
+							<span asp-validation-for="Direccion" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Imagen" class="control-label"></label>
+							<input asp-for="Imagen" class="form-control" value="@Model.Imagen" />
+							<span asp-validation-for="Imagen" class="text-danger"></span>
+							<br>
+						</article>
+						<article class="form-group">
+							<label asp-for="FechaBaja"></label>
+							<input asp-for="FechaBaja" type="" class="form-control" readonly="readonly" value="@Model.FechaBaja" />
+							<br>
+						</article>
+						<hr>
+						<h2>Manager Actual:</h2>
+						<br>
+						@if (Model.manager != null)
+						{
+							<span style="margin-left:10px;" class="alert alert-secondary card-text">
+								@Model.manager.Nombre 
+								@Model.manager.Apellido
+							</span>
+							<span> </span>
+						}
+						else
+						{
+							<span style="margin-left:10px;" class="alert alert-secondary card-text">
+								-Sin Manager-
+							</span>
+							<span> </span>
+						}
+						<br>
+						<article class="form-group">
+							<br>
+							<br>
+							<label asp-for="ManagerDni" class="control-label">Seleccion de Manager</label>
+							<select class="form-select" aria-label="Default select example" name="ManagerDni">
+								<option selected value="@null">-Sin Manager-</option>
+								@if (ViewBag.Managers != null && ViewBag.Managers.Count > 0)
+								{
+									foreach (var manager in ViewBag.Managers)
+									{
+										<option selected value="@manager.Dni">@manager.Nombre @manager.Apellido</option>
+									}
+								}
+							</select>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<input type="submit" value="Edit" class="btn btn-primary">
+						</article>
+					</form>
+				</article>				
+			</article>
+		}
+		else{<p>No se encontro el bar</p>}
+		<br>
+		<a class=" " href='javascript:history.go(-1)'>
+			<i class="bi bi-arrow-left"></i> Volver
+		</a>
+	</section>
+</body>
+
+@section Scripts
+	{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}

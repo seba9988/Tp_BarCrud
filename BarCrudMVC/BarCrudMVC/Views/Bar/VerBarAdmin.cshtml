@@ -1,0 +1,42 @@
+﻿@model BarCrudMVC.Models.BarAdminViewModel
+
+<section class="container w-50">
+	<h1 class="display-5 fw-bold text-center">Datos Bar</h1>
+	<hr>
+	@if (ViewBag.Fallo != null)
+	{
+		<article class="alert alert-danger" role="alert">
+			@ViewBag.Fallo
+		</article>
+	}
+	@if (Model != null)
+	{
+		<article class="">
+			<article class="card bg-light" >
+				<img class="card-img-top" src="@Model.Imagen" style="width: 18rem; height: 13rem;">
+				<div class="card-body bg-light">
+					<h2 class="card-title">Datos</h2>
+					<ul class="list-group list-group-flush">
+						<li class="card-text list-group-item">ID: @Model.Id</li>
+						<li class="card-text list-group-item">Nombre: @Model.Nombre</li>
+						<li class="card-text list-group-item">Direccion: @Model.Direccion</li>
+						<li class="card-text list-group-item">Fecha Baja: @Model.FechaBaja</li>
+						<li class="card-text list-group-item">
+							Manager: @if (Model.manager != null)
+							{
+								@Model.manager.Nombre
+								<text>&nbsp;</text>
+								@Model.manager.Apellido;
+							}
+						</li>						
+					</ul>
+				</div>
+			</article>
+		</article>
+	
+	}
+	<br>
+	<a class=" " href='javascript:history.go(-1)'>
+		<i class="bi bi-arrow-left"></i> Volver
+	</a>
+</section>

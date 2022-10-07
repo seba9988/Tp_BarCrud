@@ -1,0 +1,89 @@
+﻿@*@model List<BarCrudMVC.Models.ProductoViewModel>*@
+@model BarCrudMVC.Models.CarritoAddViewModel
+
+<section class="container">
+	<h1 class="display-5 fw-bold text-center">@ViewBag.Nombre</h1>
+	<hr>
+	<br>
+	<br>
+@*	<article class="card-deck">
+		<h2 class="text-center">@ViewBag.Nombre</h2>
+		<hr>
+		@if (Model != null && Model.Count > 0)
+		{
+			@foreach (var producto in Model)
+			{
+				<article class="card text-dark border-secondary" style="width: 18rem; display:inline-flex">
+					<img class="card-img-top" src="@producto.Imagen" style="width: 18rem; height: 13rem;" alt="@producto.Nombre">
+					<div class="card-body bg-light">
+						<h4 class="card-title">@producto.Nombre</h4>
+						<p class="card-text">Precio: @producto.Precio</p>
+						<p class="card-text">Stock: @producto.Stock</p>
+						<a href="#" class="btn btn-outline-dark">comprar</a>
+					</div>
+				</article>
+			}
+		}
+		else
+		{
+			<h3>No hay Productos actualmente.</h3>
+		}
+	</article>*@
+	<article class="card-deck">
+		@if (ViewBag.Productos != null && ViewBag.Productos.Count > 0)
+		{
+			@foreach (var producto in ViewBag.Productos)
+			{
+				<form asp-action="Add" asp-controller="Pedido" style="width: 18rem; display:inline-flex" method="post">
+					<article class="card text-dark border-secondary" style="width: 18rem; display:inline-flex">
+
+						<input asp-for="ProductoId" type="hidden" class="form-control" value="@producto.Id" />
+
+						<img class="card-img-top" src="@producto.Imagen" style="width: 18rem; height: 13rem;" alt="@producto.Nombre">
+						<div class="card-body bg-light">
+							<h4 class="card-title">
+								@producto.Nombre <a asp-action="VerProducto" asp-controller="Producto"
+									  class="btn btn-outline-secondary float-end"
+									  asp-route-id="@producto.Id"><i class="bi bi-search"></i></a>
+							</h4>
+							<a href="/Producto/ProductosPorBar/?nombreBar=@producto.Bar.Nombre&id=@producto.Bar.Id">
+								@producto.Bar.Nombre
+							</a>
+							<br>
+							<hr>
+							<p style="inline-block">
+								<span class=" h3 fw-bold card-text">$</span>
+								<span class="card-text h3"> @producto.Precio </span>
+							</p>
+							<p style="inline-block">
+								<span class=" fw-bold text-secondary card-text">Stock:</span>
+								<span class="card-text"> @producto.Stock </span>
+							</p>
+							<article class="form-group">
+								<label asp-for="Cantidad" class="control-label"></label>
+								<input asp-for="Cantidad" class="form-control" />
+								<span asp-validation-for="Cantidad" class="text-danger"></span>
+								<br>
+							</article>
+							<article class="form-group">
+								<input type="submit" value="Agregar" class="btn btn-primary">
+							</article>
+						</div>
+					</article>
+				</form>
+
+			}
+		}
+		else
+		{
+			<h3>No hay Productos actualmente.</h3>
+		}
+	</article>
+	<article>
+		<br>
+		<a class=" " href='javascript:history.go(-1)'>
+			<i class="bi bi-arrow-left"></i> Volver
+		</a>
+	</article>
+
+</section>

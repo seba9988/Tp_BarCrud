@@ -1,0 +1,108 @@
+﻿@model BarCrudMVC.Models.UserStatusAdminViewModel
+
+<body>
+	
+	<section class="container w-50 p-3">
+		<h1 class="display-5 fw-bold text-center">Editar Usuario</h1>
+
+		@if(Model != null)
+		{
+			<article class="card bg-light">
+				<article class="card-body bg-light">
+					<form asp-action="Edit" method="post">
+						<div asp-validation-summary="ModelOnly" class="test-danger"></div>
+
+						<article class="form-group">
+							<input asp-for="UserId" type="hidden" class="form-control" value="@Model.UserId" />
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Nombre" class="control-label"></label>
+							<input asp-for="Nombre" class="form-control" value="@Model.Nombre" />
+							<span asp-validation-for="Nombre" class="text-danger"></span>
+								<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Apellido" class="control-label"></label>
+							<input asp-for="Apellido" class="form-control" value="@Model.Apellido" />
+							<span asp-validation-for="Apellido" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="UserName" class="control-label"></label>
+							<input asp-for="UserName" class="form-control" value="@Model.UserName" />
+							<span asp-validation-for="UserName" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Dni" class="control-label"></label>
+							<input asp-for="Dni" class="form-control" value="@Model.Dni" />
+							<span asp-validation-for="Dni" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Email" class="control-label"></label>
+							<input asp-for="Email" class="form-control" value="@Model.Email" />
+							<span asp-validation-for="Email" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="FechaBaja"></label>
+							<input asp-for="FechaBaja" type="" class="form-control" readonly="readonly" value="@Model.FechaBaja" />
+						</article>
+
+						<article >
+							<hr>
+							<h2>Roles Actuales:</h2>
+							@if (Model.roles !=null && Model.roles.Count > 0)
+							{								
+								<div style="  width: 15em; max-width: 100%; display: flex; justify-content: space-between;">
+									<p style="display:inline-flex;">
+										@foreach (var role in Model.roles)
+										{
+											<span style="margin-left:10px;" class="alert alert-secondary card-text">@role</span>
+											<span> </span>
+										}
+									<p/>																	
+								</div>
+							}
+						</article>
+
+						<article class="form-group">
+							<label asp-for="rolCambiar" class="control-label">Rol a asignar</label>
+							<select class="form-select" aria-label="Default select example" name="rolCambiar">
+								<option selected value="User">User</option>
+								<option selected value="Manager">Manager</option>
+								<option selected value="Admin">Admin</option>
+								<option selected value="SuperAdmin">SuperAdmin</option>
+								<span asp-validation-for="rolCambiar" class="text-danger"></span>
+							</select>
+						</article>
+					
+						<article class="form-group">
+							<br>
+							<input type="submit" value="Edit" class="btn btn-primary">
+						</article>
+					</form>
+				</article>				
+			</article>
+		}
+		else{<p>No se encontro el usuario</p>}
+		<article>
+			<a class="nav-link text-dark" asp-area="" asp-controller="UserManagement"
+			asp-action="UserAdmin"><i class="bi bi-arrow-left"></i>Volver al listado</a>
+		</article>
+	</section>
+</body>
+
+@section Scripts
+	{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}

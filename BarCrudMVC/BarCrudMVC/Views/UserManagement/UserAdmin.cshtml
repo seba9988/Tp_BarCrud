@@ -1,0 +1,83 @@
+﻿@model List<BarCrudMVC.Models.UserViewModel>
+
+<section class="container-fluid">
+	<h1 class="display-5 fw-bold text-center">User Administrar</h1>
+	<hr>
+
+	@if (Model != null && Model.Count > 0)
+	{
+		<article>
+			<table class="table">
+				<thead>
+						<tr>
+							<th>Id<th/>
+							<th>User Name<th/>
+							<th>Fecha Baja</th>
+							<th></th>
+							<th>Acciones</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+				</thead>
+				<tbody>
+					@foreach (var user in Model)
+					{
+						<tr class="form-group">
+							<td>@Html.DisplayFor( c =>user.Id)</td>
+							<td></td>
+							<td>@Html.DisplayFor( c =>user.UserName)</td>
+							<td></td>
+							<td>@Html.DisplayFor( c =>user.FechaBaja)</td>
+							<td></td>
+							<td>
+								<a asp-action="VerUserAdmin" asp-controller="UserManagement" class="btn btn-outline-secondary"
+						   asp-route-id="@user.Id"><i class="bi bi-search"></i> Ver</a>
+							</td>
+							<td>
+								<a asp-action="EditView" asp-controller="UserManagement" class="btn btn-outline-primary"
+						   asp-route-id="@user.Id"><i class="bi bi-pencil-fill"></i></a>
+							</td>
+							<td>
+								<form method="post" asp-action="SoftDelete" asp-controller="UserManagement">
+									<input type="hidden" value="@user.Id">
+									<button type="submit" class="btn btn-outline-warning" asp-action="SoftDelete" asp-route-id="@user.Id"
+									onclick="return confirm('Eiminar el registro?')"><i class="bi bi-trash-fill"></i> Logico</button>
+								</form>
+							</td>
+							<td></td>
+							<td>
+								@if (user.FechaBaja != null)
+								{
+									<form method="post" asp-action="Retrieve" asp-controller="UserManagement">
+										<input type="hidden" value="@user.Id">
+										<button type="submit" class="btn btn-outline-warning" asp-action="Retrieve" 
+										asp-route-id="@user.Id"><i class="bi bi-clipboard2-plus-fill"></i>Retrieve </button>
+									</form>
+								}
+							</td>
+							<td></td>
+							<td>
+								<form method="post" asp-action="Delete" asp-controller="UserManagement">
+									<input type="hidden" value="@user.Id">
+									<button type="submit" class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@user.Id"
+									onclick="return confirm('Eiminar el registro?')"><i class="bi bi-trash-fill"></i></button>
+								</form>
+							</td>
+						</tr>
+					}
+					</tbody>					
+			</table>
+		</article>	
+	}else
+	{
+		<br>
+		<br>
+		<p class="alert alert-danger">No hay Usuarios para mostrar.</p>
+	}
+</section>

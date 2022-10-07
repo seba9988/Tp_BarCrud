@@ -1,0 +1,65 @@
+﻿@model BarCrudMVC.Models.CategoriaAdminViewModel
+
+<body>
+	
+	<section class="container w-50 p-3">
+		<h1 class="display-5 fw-bold text-center">Editar Categoria</h1>
+
+		@if(Model != null)
+		{
+			<article class="card bg-light">
+				<article class="card-body bg-light">
+					<form asp-action="Edit" method="post">
+						<div asp-validation-summary="ModelOnly" class="test-danger"></div>
+
+						<article class="form-group">
+							<input asp-for="Id" type="hidden" class="form-control" value="@Model.Id" />
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Nombre" class="control-label"></label>
+							<input asp-for="Nombre" class="form-control" value="@Model.Nombre" />
+							<span asp-validation-for="Nombre" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Descripcion" class="control-label"></label>
+							<input asp-for="Descripcion" class="form-control" value="@Model.Descripcion" />
+							<span asp-validation-for="Descripcion" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Imagen" class="control-label"></label>
+							<input asp-for="Imagen" class="form-control" value="@Model.Imagen" />
+							<span asp-validation-for="Imagen" class="text-danger"></span>
+							<br>
+						</article>
+						<article class="form-group">
+							<label asp-for="FechaBaja"></label>
+							<input asp-for="FechaBaja" type="" class="form-control" readonly="readonly" value="@Model.FechaBaja" />
+							<br>
+						</article>
+
+						<article class="form-group">
+							<input type="submit" value="Edit" class="btn btn-primary">
+						</article>
+					</form>
+				</article>				
+			</article>
+		}
+		else{<p>No se encontro la categoria</p>}
+		<br>
+		<a class=" " href='javascript:history.go(-1)'>
+			<i class="bi bi-arrow-left"></i> Volver
+		</a>
+	</section>
+</body>
+
+@section Scripts
+	{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}

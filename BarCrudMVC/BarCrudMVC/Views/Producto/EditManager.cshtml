@@ -1,0 +1,115 @@
+﻿@model BarCrudMVC.Models.ProductoViewModel
+
+<body>
+	<section class="container w-50 p-3">
+		<h1 class="display-5 fw-bold text-center">Editar Producto</h1>
+
+		@if (Model != null)
+		{
+			<article class="card bg-light">
+				<article class="card-body bg-light">
+					<form asp-action="EditManager" method="post">
+						<div asp-validation-summary="ModelOnly" class="test-danger"></div>
+
+						<article class="form-group">
+							<input asp-for="Id" type="hidden" class="form-control" value="@Model.Id" />
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Nombre" class="control-label"></label>
+							<input asp-for="Nombre" class="form-control" value="@Model.Nombre" />
+							<span asp-validation-for="Nombre" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Descripcion" class="control-label"></label>
+							<input asp-for="Descripcion" class="form-control" value="@Model.Descripcion" />
+							<span asp-validation-for="Descripcion" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Precio" class="control-label"></label>
+							<input asp-for="Precio" class="form-control" value="@Model.Precio" />
+							<span asp-validation-for="Precio" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Stock" class="control-label"></label>
+							<input asp-for="Stock" class="form-control" />
+							<span asp-validation-for="Stock" class="text-danger"></span>
+							<br>
+						</article>
+
+						<article class="form-group">
+							<label asp-for="Imagen" class="control-label"></label>
+							<input asp-for="Imagen" class="form-control" />
+							<span asp-validation-for="Imagen" class="text-danger"></span>
+							<br>
+						</article>
+
+						<hr>
+						<h2>Categoria Actual:</h2>
+						<br>
+						@if (Model.Categoria != null)
+						{
+							<span style="margin-left:10px;" class="alert alert-secondary card-text">
+								@Model.Categoria.Nombre
+							</span>
+							<span> </span>
+						}
+						else
+						{
+							<span style="margin-left:10px;" class="alert alert-secondary card-text">
+								-Sin Categoria-
+							</span>
+							<span> </span>
+						}
+
+						<article class="form-group">
+							<br>
+							<label asp-for="CategoriaId" class="control-label">Seleccion de Categoria</label>
+							<select class="form-select" asp-for="CategoriaId" name="CategoriaId">
+								<option selected value="@null">-Sin Categoria-</option>
+								@if (ViewBag.Categorias != null && ViewBag.Categorias.Count > 0)
+								{
+									foreach (var categoria in ViewBag.Categorias)
+									{
+										<option selected value="@categoria.Id">@categoria.Nombre</option>
+									}
+								}
+							</select>
+							<span asp-validation-for="CategoriaId" class="text-danger"></span>
+
+						</article>
+					
+						<article class="form-group">
+							<input type="submit" value="Edit" class="btn btn-primary">
+						</article>
+					</form>
+				</article>
+			</article>
+		}
+		else
+		{
+			<p>No se encontro el prodcuto</p>
+		}
+		<br>
+		<a class=" " href='javascript:history.go(-1)'>
+			<i class="bi bi-arrow-left"></i> Volver</a>
+	</section>
+</body>
+@section Scripts
+	{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		@*Script para que el validador js acepte "," en vez de "." en los numeros decimales *@
+			$.validator.methods.number = function (value, element) {
+				return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)?(?:,\d+)?$/.test(value);
+			}
+	</script>
+	}

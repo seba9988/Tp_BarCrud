@@ -1,0 +1,72 @@
+﻿@using BarCrudMVC.Models
+@model BarAdminViewModel
+<body>
+				
+	<section class="container w-50 p-3">
+		<h1 class="display-5 fw-bold text-center">Agregar Bar</h1>
+		<article class="card bg-light">
+			@if (ViewBag.Fallo != null)
+			{
+				<article class="alert alert-danger">
+					@ViewBag.Fallo
+				</article>
+			}
+			<article class="card-body bg-light">
+				<form asp-action="Add" method="post">
+					<div asp-validation-summary="ModelOnly" class="test-danger"></div>
+
+					<article class="form-group">
+						<label asp-for="Nombre" class="control-label"></label>
+						<input asp-for="Nombre" class="form-control" />
+						<span asp-validation-for="Nombre" class="text-danger"></span>
+						<br>
+					</article>
+
+					<article class="form-group">
+						<label asp-for="Direccion" class="control-label"></label>
+						<input asp-for="Direccion" class="form-control" />
+						<span asp-validation-for="Direccion" class="text-danger"></span>
+						<br>
+					</article>
+
+					<article class="form-group">
+						<label asp-for="Imagen" class="control-label"></label>
+						<input asp-for="Imagen" class="form-control" />
+						<span asp-validation-for="Imagen" class="text-danger"></span>
+						<br>
+					</article>
+
+					<article class="form-group">
+						<label asp-for="ManagerDni" class="control-label">Manager</label>
+						<select class="form-select" aria-label="Default select example" name="ManagerDni">
+							<option selected value="@null">-Sin Manager-</option>
+							@if (ViewBag.Managers != null && ViewBag.Managers.Count > 0)
+							{
+								foreach (var manager in ViewBag.Managers)
+								{
+									<option selected value="@manager.Dni">@manager.Nombre</option>
+								}
+							}
+						</select>
+						<br>
+					</article>
+
+					<article class="form-group">
+						<input type="submit" value="Add" class="btn btn-primary">
+					</article>					
+				</form>
+			</article>		
+		</article>	
+		<article>
+			<a class="nav-link text-dark" asp-area="" asp-controller="Bar"
+			asp-action="BarAdmin"><i class="bi bi-arrow-left"></i>Volver al listado</a>
+		</article>
+	</section>
+</body>
+
+@section Scripts
+	{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}
