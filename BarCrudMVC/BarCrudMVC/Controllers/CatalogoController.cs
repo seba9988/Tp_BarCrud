@@ -14,7 +14,7 @@ namespace BarCrudMVC.Controllers
             _productoService = productoService; 
         }
         [AllowAnonymous]
-        //Busco y muestro las categorias sin baja, para usuarios sin loguear o logueados
+        //Busco y muestro los productos y categorias, para usuarios sin loguear o logueados
         public async Task<IActionResult> Index()
         {
             try

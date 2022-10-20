@@ -57,10 +57,10 @@
 							<td>
 								@if (producto.FechaBaja != null)
 								{
-									<form method="post" asp-action="Retrieve" asp-controller="Producto">
+									<form method="post" asp-action="Restore" asp-controller="Producto">
 										<input type="hidden" value="@producto.Id">
-										<button type="submit" class="btn btn-outline-warning" asp-action="Retrieve" asp-route-id="@producto.Id">
-											<i class="bi bi-clipboard2-plus-fill"></i>Retrieve </button>
+										<button type="submit" class="btn btn-outline-warning" asp-action="Restore" asp-route-id="@producto.Id">
+											<i class="bi bi-clipboard2-plus-fill"></i>Restore </button>
 									</form>
 								}
 							</td>

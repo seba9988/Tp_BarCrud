@@ -166,7 +166,7 @@ namespace BarCrudApi.Services
           
         }
 
-        //Se efctua la compra del pedido de un usuario
+        //Se efectua la compra del pedido de un usuario
         //si tiene almenos un pedidoDetelle
         public async Task<bool> Compra(string userId) 
         {

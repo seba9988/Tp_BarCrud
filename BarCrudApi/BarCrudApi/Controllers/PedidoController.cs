@@ -54,7 +54,7 @@ namespace BarCrudApi.Controllers
         [Authorize(Roles = UserRoles.User)]
         [Route("historialUser/{userId}")]
         [HttpGet]
-        //Todas los Productos  esten o no con baja logica, solo admins y superAdmins
+        //busco historial pedidos de un usuario
         public async Task<IActionResult> GetHistorialUsuario(string userId)
         {
             try
@@ -90,7 +90,7 @@ namespace BarCrudApi.Controllers
         [Authorize(Roles = UserRoles.Manager)]
         [Route("historialBar/{barId}")]
         [HttpGet]
-        //Todas los Productos  esten o no con baja logica, solo admins y superAdmins
+        //Todas los pedidoDetalle de pedidos finalizados de un bar
         public async Task<IActionResult> GetHistorialBar(int barId)
         {
             try
@@ -166,7 +166,7 @@ namespace BarCrudApi.Controllers
         }
 
         [HttpDelete("{userId}")]
-        //Rremuevo todos los productos del pedido pendiente y lo borro
+        //Remuevo todos los productos del pedido pendiente y lo borro
         public async Task<IActionResult> CancelarPedido(string userId)
         {
             try

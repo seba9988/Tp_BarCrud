@@ -14,10 +14,10 @@ namespace BarCrudApi.Services
             _context = context;
             _userManagementService = userManagementService;
         }
-        //Busca todas las categorias, esten con baja logica o no
+        //Busca todos los bares, esten con baja logica o no
         public async Task<IList<BarAdminViewModel>> GetAll()
             => await _context.Bares.Select(b => new BarAdminViewModel(b)).ToListAsync();
-        //Busca todos los datos de un bar
+        //Busca los datos de un bar
         public async Task<BarViewModel?> GetOne(int id)
         {
             try
@@ -35,11 +35,11 @@ namespace BarCrudApi.Services
             }
             catch (Exception) { return null; }
         }
+        //Busco datos completos de un bar incluyendo su manager, solo para admins y superAdmins
         public async Task<BarAdminViewModel?> GetOneAdmin(int id) 
         {
             try
             {
-                //var bar = await _context.Bares.FindAsync(barVM.Id);
                 var bar = await _context.Bares.Where(e => e.Id == id)
                     .Include(b => b.ManagerDniNavigation)
                     .FirstAsync();
@@ -87,15 +87,29 @@ namespace BarCrudApi.Services
         public async Task<bool> Add(BarAdminViewModel barVM)
         {
             try
-            {
+            {   
+                //verifico si se ingreso un dni
+                if(barVM.ManagerDni != null) 
+                {
+                    //busco si el manager ingresado existe
+                    var managerConBar = await _context.Personas
+                        .Include(p => p.Bares)
+                        .Where(p => p.Dni == barVM.ManagerDni)
+                        .FirstOrDefaultAsync();
+                    //si el manager no existe o ya tiene asignado un bar devuelvo false
+                    if (managerConBar == null || managerConBar.Bares != null)
+                        return false;                    
+                }
+                //Si no se selecciono ningun manager o el manager no tienen ningun bar asignado se agrega el bar
                 var barNuevo = new Bar(barVM);
                 _context.Bares.Add(barNuevo);
                 await _context.SaveChangesAsync();
                 return true;
+
             }
             catch (Exception) { return false; }
         }
-        //Edita una un bar nuevo si este es valido para editar,false si no se edito, true si se edita
+        //Edita una un bar si este es valido para editar,false si no se edito, true si se edita
         public async Task<bool> Edit(BarAdminViewModel barEditado)
         {
             var barActual = _context.Bares.Find(barEditado.Id);
@@ -118,7 +132,7 @@ namespace BarCrudApi.Services
         }
 
         //Elimina un bar en cascada,false si no se elimino, true si se elimina
-        //Esto implica borrar los stocks de este bar, pedidos, y pedidos detalle
+        //Esto implica borrar los pedidos y pedidos detalle
         public async Task<bool> Delete(int id)
         {
             //busco bar con sus productos
@@ -156,8 +170,8 @@ namespace BarCrudApi.Services
         //Elimina un bar logicamente si este es valido para eliminar,false si no se elimino, true si se elimina
         //Tambien se da baja logica a sus productos que no tengan baja logica,
         //Haciendo esto los productos que se dieron de baja con anterioridad a la baja logica tienen una fecha baja diferente
-        //de esta forma cuando recupero el bar con retrieve
-        //solo voy a recuperar los productos con la mayor fecha baja
+        //de esta forma cuando recupero el bar con restore
+        //solo voy a recuperar los productos con la misma fecha baja que el bar
         public async Task<bool> SoftDelete(int id)
         {
             var barActual = _context.Bares.Find(id);

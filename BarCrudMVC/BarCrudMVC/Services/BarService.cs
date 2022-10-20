@@ -49,7 +49,7 @@ namespace BarCrudMVC.Services
                 return null;
             }           
         }
-        //Busca todos los bares que no esten de baja, fechaBaja=null
+        //Busca todos los bares sin manager que no esten de baja, fechaBaja=null
         public async Task<IList<BarViewModel>> GetAllSinManager()
         {
             try 
@@ -103,7 +103,7 @@ namespace BarCrudMVC.Services
             }
             catch (Exception) { return null; }
         }
-        //Agrega un bar nueva si este es valido para guardar,false si no se agrego, true si se agrega
+        //Agrega un bar nuevo si este es valido para guardar,false si no se agrego, true si se agrega
         public async Task<bool> Add(BarAdminViewModel bar) 
         {
             try
@@ -140,7 +140,7 @@ namespace BarCrudMVC.Services
             }
             catch (Exception) { return false; }
         }
-        //Recupera un bar eliminado logicamente si estr es valido para recuperar,false si no se recupera, true si se recupera
+        //Recupera un bar eliminado logicamente si este es valido para recuperar,false si no se recupera, true si se recupera
         public async Task<bool> Restore(int id)
         {
             try

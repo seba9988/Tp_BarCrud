@@ -135,7 +135,7 @@ namespace BarCrudMVC.Services
             }
             catch (Exception) { return false; }
         }
-        //Edita un producto 
+        //Edita un producto cualquiera, solo para admins y superadmins
         public async Task<bool> Edit(ProductoAdminViewModel productoVM) 
         {
             try
@@ -172,7 +172,7 @@ namespace BarCrudMVC.Services
             catch (Exception) { return false; }
         }
         //Se efectua la baja permanente, en la api
-        //Lo que implica que tambien se va a borrar stocks, pedidos y detalle pedido de este producto
+        //Lo que implica que tambien se va a borrar pedidos y detalle pedido de este producto
         public async Task<bool> Delete(int id) 
         {
             try
@@ -202,7 +202,7 @@ namespace BarCrudMVC.Services
             }
             catch (Exception) { return false; }
         }
-        //Edita un producto
+        //Edita un producto perteneciente al bar del manager, solo para managers
         public async Task<bool> Edit(ProductoManagerViewModel productoVM)
         {
             try
@@ -219,7 +219,7 @@ namespace BarCrudMVC.Services
             }
             catch (Exception) { return false; }
         }
-        //Baja logica de prodcuto
+        //Baja logica de prodcuto del bar del manager, solo para managers
         public async Task<bool> SoftDeleteManager(int id)
         {
             try

@@ -152,7 +152,7 @@ namespace BarCrudApi.Controllers
         [HttpPost]
         [Authorize(Roles = UserRoles.SuperAdmin)]
         [Route("register/SuperAdmin")]
-        //Se registra un usuario con rol de admin
+        //Se registra un usuario con rol de SuperAdmin
         public async Task<IActionResult> RegisterSuperAdmin([FromBody] RegisterViewModel registerModel)
         {
             if (ModelState.IsValid)
@@ -187,7 +187,7 @@ namespace BarCrudApi.Controllers
         }
         [Authorize(Roles = UserRoles.SuperAdmin)]
         [HttpGet]
-        //Todas los Productos  esten o no con baja logica, solo admins y superAdmins
+        //Todas los usuarios esten o no con baja logica, solo superAdmins
         public async Task<IActionResult> GetAll()
         {
             try
@@ -275,8 +275,7 @@ namespace BarCrudApi.Controllers
 
         [Authorize(Roles = UserRoles.SuperAdmin)]
         [HttpDelete("{id}")]
-        //Borrado permanente de categorias, solo admins y superAdmins tienen permiso,
-        // buscar si tambien se borran todos los productos de esa categoria
+        //Borrado permanente de usuario/persona, solo superAdmins tienen permiso,
         public async Task<IActionResult> Delete(string id)
         {
             try

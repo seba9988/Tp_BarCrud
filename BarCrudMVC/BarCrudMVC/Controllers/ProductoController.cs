@@ -100,7 +100,7 @@ namespace BarCrudMVC.Controllers
         }
 
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
-        //Busco y traigo todas los productos con o sin baja, solo admins y superAdmins
+        //Busco y traigo todos los productos con o sin baja, solo admins y superAdmins
         public async Task<IActionResult> ProductoAdmin()
         {
             try
@@ -115,7 +115,7 @@ namespace BarCrudMVC.Controllers
             }
         }
         //Se pasa a la view Add
-        //Busco las categorias para mostrar como opcion en el add
+        //Busco las categorias y bares para mostrar como opcion en el add
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         public async Task<IActionResult> AddView()
         {
@@ -135,7 +135,7 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        //Se efectua la edicion del producto
+        //Se agrega el producto
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         [HttpPost]
         public async Task<IActionResult> Add(ProductoAdminViewModel producto)
@@ -144,7 +144,7 @@ namespace BarCrudMVC.Controllers
             {
                 if (await _productoService.Add(producto))
                 {
-                    ViewBag.Exito = "Se edito con exito el producto!.";
+                    ViewBag.Exito = "Se agrego con exito el producto!.";
                     return View("AccionResult");
                 }
                 ViewBag.Fallo = "Fallo la Agregacion del producto.";
@@ -271,14 +271,14 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        //Se efectua la baja logica
+        //Se recupera el producto de la baja logica
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         [HttpPost]
-        public async Task<IActionResult> Retrieve(int id)
+        public async Task<IActionResult> Restore(int id)
         {
             try
             {
-                //Compruebo si recupero con exito la categoria
+                //Compruebo si recupero con exito el producto
                 if (await _productoService.Restore(id))
                 {
                     ViewBag.Exito = "Se recupero el producto con extio!.";
@@ -336,7 +336,7 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        //Se efectua la edicion del producto
+        //Se agrega producto al bar del manager
         [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> AddManager(ProductoManagerViewModel producto)
@@ -345,7 +345,7 @@ namespace BarCrudMVC.Controllers
             {
                 if (await _productoService.Add(producto))
                 {
-                    ViewBag.Exito = "Se edito con exito el producto!.";
+                    ViewBag.Exito = "Se agrego con exito el producto!.";
                     return View("AccionResult");
                 }
                 ViewBag.Fallo = "Fallo la Agregacion del producto.";

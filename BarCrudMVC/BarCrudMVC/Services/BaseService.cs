@@ -2,8 +2,8 @@
 
 namespace BarCrudMVC.Services
 {
-	//Clase base para todos los servicios, instancia el clienteFActory con su base uri
-	//Tambien se agrega jwt al header si este esta en las coockies
+	//Clase base para todos los servicios, instancia el clienteFactory con su base uri
+	//Tambien se agrega jwt al header si este esta en las cookies
 	public class BaseService
 	{
 		protected readonly IHttpContextAccessor _contextAccessor;

@@ -40,8 +40,6 @@ namespace BarCrudApi.Controllers
             }
         }
 
-        #region Admins y SuperAdmins
-
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [Route("allCategoriasProductos")]
         [HttpGet]
@@ -147,7 +145,6 @@ namespace BarCrudApi.Controllers
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [HttpPost("restore/{id}")]
         //Recuperacion de la eliminacion logica, tambien se recuperan todos los productos de la categoria
-        //pensar como mantener el estado de los productos antes de la eliminacion logica para mantener todo igual
         public async Task<IActionResult> Restore(int id)
         {      
             try
@@ -204,6 +201,5 @@ namespace BarCrudApi.Controllers
             //aca podria hacer un catch de una custom excepcion para detectar que el id no exite
             //return NotFound("El id ingresado no exite!");           
         }
-        #endregion
     }
 }

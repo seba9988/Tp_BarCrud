@@ -18,7 +18,7 @@ namespace BarCrudMVC.Controllers
         }
 
         //busco el pedido del usuario,
-        //si tiene uno lo envio a la vista carrito con  su lista productos
+        //si tiene uno lo envio a la vista carrito con su lista productos
         [HttpGet]
         public async Task <IActionResult> CarritoView()
         {
@@ -168,7 +168,7 @@ namespace BarCrudMVC.Controllers
             {
                 if (await _pedidoService.Compra())
                 {
-                    ViewBag.Exito = "Se compro realizo la compra con exito!.";
+                    ViewBag.Exito = "Se realizo la compra con exito!.";
                     return View("AccionResult");
                 }
                 ViewBag.Fallo = "Fallo la comrpa, vuelva a intentarlo.";

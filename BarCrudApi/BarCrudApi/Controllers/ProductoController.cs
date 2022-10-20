@@ -94,7 +94,7 @@ namespace BarCrudApi.Controllers
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [Route("allConBaja")]
         [HttpGet]
-        //Todas los Productos  esten o no con baja logica, solo admins y superAdmins
+        //Todas los Productos esten o no con baja logica, solo admins y superAdmins
         public async Task<IActionResult> GetAllConFechaBaja()
         {
             try
@@ -111,6 +111,7 @@ namespace BarCrudApi.Controllers
 
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [HttpGet("admin/{id}")]
+        //Busco datos completos de un producto, solo admins
         public async Task<IActionResult> GetOneAdmin(int id)
         {
 
@@ -130,8 +131,7 @@ namespace BarCrudApi.Controllers
 
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [HttpPost]
-        //Agrego un Producto nuevo, solo Managers, admins y superAdmin tienen permiso
-        // posiblemente hacer un metodo diferente para manager
+        //Agrego un Producto nuevo, solo admins y superAdmin tienen permiso
         public async Task<IActionResult> Add(ProductoAdminViewModel producto)
         {
             if (ModelState.IsValid)
@@ -227,7 +227,7 @@ namespace BarCrudApi.Controllers
 
         [Authorize(Roles = UserRoles.Manager)]
         [HttpPost("manager")]
-        //Agrego un Producto nuevo para el bar asignado al manager
+        //Agrego un Producto nuevo para el bar asignado al manager, solo para managers
         public async Task<IActionResult> Add(ProductoManagerViewModel producto)
         {
             if (ModelState.IsValid)
@@ -269,7 +269,7 @@ namespace BarCrudApi.Controllers
 
         [Authorize(Roles = UserRoles.Manager)]
         [HttpPost("softDelete/Manager")]
-        //Se elimina logicamente un producto del bar perteneciente al manager , solo para admins
+        //Se elimina logicamente un producto del bar perteneciente al manager , solo para managers
         public async Task<IActionResult> SoftDelete([FromBody]SoftDeleteManagerViewModel productoVm)
         {
             try

@@ -117,7 +117,7 @@ namespace BarCrudMVC.Services
         {
             try
             {
-                //Realizo la baja logica en la api
+                //Realizo la baja permanente en la api
                 var response = await client.DeleteAsync($"/api/Categoria/{id}");
                 response.EnsureSuccessStatusCode();
                 return response.IsSuccessStatusCode ? true : false;

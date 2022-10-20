@@ -36,13 +36,11 @@ namespace BarCrudApi.Controllers
                 { Status = "Error", Message = "Ocurrio un error, vuelva a intentarlo." });
             }
         }
-
-        #region Admins y SuperAdmins
-      
+     
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [Route("allConBaja")]
         [HttpGet]
-        //Todas los bares con sus productos esten o no con baja logica, solo admins y superAdmins
+        //Todos los bares con sus productos esten o no con baja logica, solo admins y superAdmins
         public async Task<IActionResult> GetAll()
         {
             try
@@ -59,7 +57,7 @@ namespace BarCrudApi.Controllers
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [Route("sinManager")]
         [HttpGet]
-        //Todas los bares que no tengan baja y no tengan manager, solo admins y superAdmins
+        //Tods los bares que no tengan baja y manager asignado, solo admins y superAdmins
         public async Task<IActionResult> GetAllSinManager()
         {
             try
@@ -160,7 +158,7 @@ namespace BarCrudApi.Controllers
 
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [HttpPost("restore/{id}")]
-        //Recuperacion de la eliminacion logica, tambien se recupera el manager con baja
+        //Recuperacion de la eliminacion logica
         public async Task<IActionResult> Restore(int id)
         {
             try
@@ -180,7 +178,7 @@ namespace BarCrudApi.Controllers
 
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [HttpPost("softDelete/{id}")]
-        //Se elimina logicamente una categoria y sus productos solo admins y superAdmin tienen permiso
+        //Se elimina logicamente un bar y sus productos solo admins y superAdmin tienen permiso
         public async Task<IActionResult> SoftDelete(int id)
         {
             try
@@ -200,14 +198,13 @@ namespace BarCrudApi.Controllers
 
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [HttpDelete("{id}")]
-        //Borrado permanente de categorias, solo admins y superAdmins tienen permiso,
-        // buscar si tambien se borran todos los productos de esa categoria
+        //Borrado permanente de bar, solo admins y superAdmins tienen permiso,
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 return await _barService.Delete(id) ? Ok(new Response
-                { Status = "Success", Message = "Se elimino permanentemen el bar y su Manager con exito!." }) :
+                { Status = "Success", Message = "Se elimino permanentemen el bar con exito!." }) :
                 StatusCode(StatusCodes.Status500InternalServerError, new Response
                 { Status = "Error", Message = "Ocurrio un error o el id no existe, vuelva a intentarlo." });
             }
@@ -218,7 +215,6 @@ namespace BarCrudApi.Controllers
             //aca podria hacer un catch de una custom excepcion para detectar que el id no exite
             //return NotFound("El id ingresado no exite!");           
         }
-        #endregion
 
         [Authorize(Roles = UserRoles.Manager)]
         [HttpGet("allManager/{id}")]

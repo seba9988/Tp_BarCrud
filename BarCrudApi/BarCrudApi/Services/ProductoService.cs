@@ -109,7 +109,7 @@ namespace BarCrudApi.Services
         }
  
         //Elimina un producto en cascada si este es valido para eliminar, false si no se elimino, true si se elimina
-        //esto implica que se va a borrar  pedidos y detalle pedido de este producto en cascada
+        //esto implica que se va a borrar pedidos y detalle pedido de este producto en cascada
         public async Task<bool> Delete(int id)
         {
             var productoEliminar = await _context.Productos.FindAsync(id);
@@ -152,7 +152,7 @@ namespace BarCrudApi.Services
             //aca podria tirar una custom Exception para informar que el id no existe
             return false;
         }
-        //Recupera un producto eliminada logicamente si esta es valida para recuperar
+        //Recupera un producto eliminado logicamente si esta es valido para recuperar
         //se prohibe restore si la categoria o bar del producto estan de baja
         public async Task<bool> Restore(int id)
         {

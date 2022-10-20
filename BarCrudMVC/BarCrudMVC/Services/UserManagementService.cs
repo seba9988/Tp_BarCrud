@@ -25,7 +25,7 @@ namespace BarCrudMVC.Services
         {
             try
             {
-                //Busco las categorias con y sin bajas
+                //Busco los usuarios con con y sin bajas en la api
                 var response = await client.GetAsync("/api/Authenticate");
                 response.EnsureSuccessStatusCode();
                 if (response.IsSuccessStatusCode)
@@ -43,7 +43,7 @@ namespace BarCrudMVC.Services
         {
             try
             {
-                //Busco los correspondientes al usuario
+                //Busco los datos correspondientes al usuario
                 var response = await client.GetAsync("/api/Authenticate/user/" + id);
                 response.EnsureSuccessStatusCode();
                 if (response.IsSuccessStatusCode)
@@ -56,7 +56,7 @@ namespace BarCrudMVC.Services
             }
             catch (Exception) { return null; }
         }
-        //Se edita al usuario puede ser roles u atributos
+        //Se edita al usuario puede ser roles o atributos
         public async Task<bool> Edit(UserStatusAdminViewModel user) 
         {
             try
@@ -143,13 +143,12 @@ namespace BarCrudMVC.Services
                     }
                     var principal = new ClaimsPrincipal(claimsIdentity);
 
-                    //Realizo el logeo con coockie
+                    //Realizo el logeo con cookie
                     await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                     //Guardo token en una cookie de tipo HttpOnly
                     _contextAccessor.HttpContext.Response.Cookies.Append(XAccessToken, resp.Token,
                         new CookieOptions { HttpOnly = true, Secure = true });
-                    //return View(resp);
                     return true;
                 }
                 return false;
@@ -171,7 +170,7 @@ namespace BarCrudMVC.Services
             }
             catch (Exception) {return false; }          
         }
-        //Registro de un usuario con role user
+        //Registro de un usuario con role Manager
         public async Task<bool> RegisterManager(RegisterManagerViewModel registerModel)
         {
             try
@@ -239,7 +238,7 @@ namespace BarCrudMVC.Services
                     var personaData = JsonConvert.DeserializeObject<PersonaViewModel>(result);
 
                     //busco roles en el token
-                    var roleToken = _contextAccessor.HttpContext.User.Claims.Where(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
+                    var roleToken = _contextAccessor.HttpContext.User.Claims.Where(c => c.Type.Contains("role"));
                     //paso datos del usuario contenidos en el token y personaData al viewModel
                     var userStatus = new UserStatusViewModel
                     {

@@ -54,10 +54,10 @@
 							<td>
 								@if (user.FechaBaja != null)
 								{
-									<form method="post" asp-action="Retrieve" asp-controller="UserManagement">
+									<form method="post" asp-action="Restore" asp-controller="UserManagement">
 										<input type="hidden" value="@user.Id">
-										<button type="submit" class="btn btn-outline-warning" asp-action="Retrieve" 
-										asp-route-id="@user.Id"><i class="bi bi-clipboard2-plus-fill"></i>Retrieve </button>
+										<button type="submit" class="btn btn-outline-warning" asp-action="Restore" 
+										asp-route-id="@user.Id"><i class="bi bi-clipboard2-plus-fill"></i>Restore </button>
 									</form>
 								}
 							</td>

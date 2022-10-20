@@ -345,7 +345,7 @@ namespace BarCrudMVC.Controllers
             }
         }
         //Se efectua la baja permanente, esta baja es en cascada
-        //Lo que implica que tambien se va a borrar stocks, pedidos y detalle pedido de este producto
+        //Lo que implica que tambien se va a borrar pedidos y detalle pedido de este usuario
         [Authorize(Roles = ("SuperAdmin"))]
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
@@ -367,14 +367,14 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        //Se efectua la baja logica
+        //Se recupera un usuario de la baja logica
         [Authorize(Roles = ("SuperAdmin"))]
         [HttpPost]
-        public async Task<IActionResult> Retrieve(string id)
+        public async Task<IActionResult> Restore(string id)
         {
             try
             {
-                //Compruebo si recupero con exito la categoria
+                //Compruebo si recupero con exito el usuario
                 if (await _userManagementService.Restore(id))
                 {
                     ViewBag.Exito = "Se recupero el usuario con extio!.";

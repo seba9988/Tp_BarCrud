@@ -20,10 +20,9 @@ namespace BarCrudMVC.Services
                 //busco id del usuario logueado
                 var userId = _contextAccessor.HttpContext.User.Claims
                 .FirstOrDefault(c => c.Type.Contains("UserId"))?.Value;
-                //Busco los bares con y sin bajas
+                //Busco pedido pendiente del usuario perteneciente al userId en la api
                 var response = await client.GetAsync($"/api/Pedido/{userId}");
                 var statusCodes = response.StatusCode;
-                //response.EnsureSuccessStatusCode();
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
@@ -54,7 +53,7 @@ namespace BarCrudMVC.Services
                 //busco id del usuario logueado
                 var userId = _contextAccessor.HttpContext.User.Claims
                 .FirstOrDefault(c => c.Type.Contains("UserId"))?.Value;
-                //Hago el add en la api
+                //Busco historial de pedidos del usuario correspondiente al userId en la api
                 var response = await client.GetAsync($"/api/Pedido/historialUser/{userId}");
                 response.EnsureSuccessStatusCode();
                 if (response.IsSuccessStatusCode)
@@ -72,7 +71,7 @@ namespace BarCrudMVC.Services
             try
             {
                 var pedidos = new List<PedidoDetalleBarViewModel>();
-                //Hago el add en la api
+                //Busco todos los pedidoDetalle de pedidos finalizados de un bar en la api
                 var response = await client.GetAsync($"/api/Pedido/historialBar/{barId}");
                 response.EnsureSuccessStatusCode();
                 if (response.IsSuccessStatusCode)
@@ -90,7 +89,7 @@ namespace BarCrudMVC.Services
         {
             try
             {
-                //Hago el add en la api
+                //busco un pedido con el id pedidoId en la api
                 var response = await client.GetAsync($"/api/Pedido/detalle/{pedidoId}");
                 response.EnsureSuccessStatusCode();
                 if (response.IsSuccessStatusCode)
@@ -104,7 +103,7 @@ namespace BarCrudMVC.Services
             }
             catch (Exception) { return null; }
         }
-        //Agrega un bar nueva si este es valido para guardar,false si no se agrego, true si se agrega
+        //Agrego un producto nuevo al pedido en la api
         public async Task<bool> Add(CarritoAddViewModel model)
         {
             try
@@ -121,7 +120,7 @@ namespace BarCrudMVC.Services
             catch (Exception) { return false; }
         }
 
-        //Edita un bar si esta es valido para editar,false si no se edito, true si se edita
+        //Se efectua la compra de un pedido seteando la fechaCompra = fecha y hora actual
         public async Task<bool> Compra()
         {
             try
@@ -129,7 +128,7 @@ namespace BarCrudMVC.Services
                 //busco id del usuario logueado
                 var userId = _contextAccessor.HttpContext.User.Claims
                 .FirstOrDefault(c => c.Type.Contains("UserId"))?.Value;
-                //Envio el bar a la api para ser editado
+                //se realiza la compra en la api
                 var response = await client.PutAsJsonAsync($"/api/Pedido/{userId}", "");
                 response.EnsureSuccessStatusCode();
                 return response.IsSuccessStatusCode ? true : false;
@@ -152,7 +151,7 @@ namespace BarCrudMVC.Services
             }
             catch (Exception) { return false; }
         }
-        //Elimina un bar permanentemente si este es valido para eliminar,false si no se elimino, true si se elimina
+        //Elimina el pedido pendiente de un usuario permanentemente
         public async Task<bool> CancelarPedido()
         {
             try

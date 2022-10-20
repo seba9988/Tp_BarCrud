@@ -48,7 +48,7 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        //Se efectua la edicion de la categoria
+        //Se agrega la categoria
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         [HttpPost]
         public async Task<IActionResult> Add(CategoriaAdminViewModel categoria)
@@ -57,7 +57,7 @@ namespace BarCrudMVC.Controllers
             {
                 if (await _categoriaService.Add(categoria))
                 {
-                    ViewBag.Exito = "Se edito con exito la categoria!.";
+                    ViewBag.Exito = "Se agrego con exito la categoria!.";
                     return View("AccionResult");
                 }
                 ViewBag.Fallo = "Fallo la agragacion de la categoria.";
@@ -108,7 +108,7 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        //Se efectua la edicion de la categoria
+        //Se busca y muestra datos de la categoria perteneciente al id 
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         [HttpGet]
         public async Task<IActionResult> VerCategoria(int id)
@@ -176,10 +176,10 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        //Se efectua la baja logica
+        //Se recupera la categoria de la baja logica
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         [HttpPost]
-        public async Task<IActionResult> Retrieve(int id)
+        public async Task<IActionResult> Restore(int id)
         {
             try
             {

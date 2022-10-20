@@ -73,7 +73,7 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        //Se efectua la edicion del bar
+        //Se agrega un bar
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         [HttpPost]
         public async Task<IActionResult> Add(BarAdminViewModel bar)
@@ -82,7 +82,7 @@ namespace BarCrudMVC.Controllers
             {
                 if (await _barService.Add(bar))
                 {
-                    ViewBag.Exito = "Se edito con exito el bar!.";
+                    ViewBag.Exito = "Se agrego con exito el bar!.";
                     return View("AccionResult");
                 }
                 ViewBag.Fallo = "Fallo la agregacion del bar.";
@@ -190,14 +190,14 @@ namespace BarCrudMVC.Controllers
                 return View("AccionResult");
             }
         }
-        //Se efectua la baja logica
+        //Se recupera un bar
         [Authorize(Roles = ("SuperAdmin") + "," + ("Admin"))]
         [HttpPost]
-        public async Task<IActionResult> Retrieve(int id)
+        public async Task<IActionResult> Restore(int id)
         {
             try
             {
-                //Compruebo si recupero con exito la categoria
+                //Compruebo si recupero con exito el bar
                 if (await _barService.Restore(id))
                 {
                     ViewBag.Exito = "Se recupero el bar con extio!.";
@@ -219,7 +219,7 @@ namespace BarCrudMVC.Controllers
         {
             try
             {
-                //busco datos de la categoria
+                //busco datos del bar
                 var bar = await _barService.GetOneAdmin(id);
                 if (bar != null)
                 {
