@@ -57,7 +57,7 @@ namespace BarCrudApi.Controllers
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [Route("sinManager")]
         [HttpGet]
-        //Tods los bares que no tengan baja y manager asignado, solo admins y superAdmins
+        //Todos los bares que no tengan baja y manager asignado, solo admins y superAdmins
         public async Task<IActionResult> GetAllSinManager()
         {
             try

@@ -187,7 +187,7 @@ namespace BarCrudApi.Controllers
         }
         [Authorize(Roles = UserRoles.SuperAdmin)]
         [HttpGet]
-        //Todas los usuarios esten o no con baja logica, solo superAdmins
+        //Todos los usuarios esten o no con baja logica, solo superAdmins
         public async Task<IActionResult> GetAll()
         {
             try

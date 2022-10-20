@@ -90,7 +90,7 @@ namespace BarCrudApi.Controllers
         [Authorize(Roles = UserRoles.Manager)]
         [Route("historialBar/{barId}")]
         [HttpGet]
-        //Todas los pedidoDetalle de pedidos finalizados de un bar
+        //Todos los pedidoDetalle de pedidos finalizados de un bar
         public async Task<IActionResult> GetHistorialBar(int barId)
         {
             try

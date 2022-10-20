@@ -76,7 +76,7 @@ namespace BarCrudApi.Controllers
         }
         [AllowAnonymous]
         [HttpGet("byBar/{id}")]
-        //buusco todos los productos sin baja de un bar 
+        //busco todos los productos sin baja de un bar 
         public async Task<IActionResult> GetbyBar(int id)
         {
             try
@@ -94,7 +94,7 @@ namespace BarCrudApi.Controllers
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.SuperAdmin)]
         [Route("allConBaja")]
         [HttpGet]
-        //Todas los Productos esten o no con baja logica, solo admins y superAdmins
+        //busco todos los Productos esten o no con baja logica, solo admins y superAdmins
         public async Task<IActionResult> GetAllConFechaBaja()
         {
             try
